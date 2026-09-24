@@ -10,9 +10,10 @@ import {
 } from "../lib/groceries";
 
 export const Route = createFileRoute("/list")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    category: typeof search.category === "string" ? search.category : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { category?: string } => {
+    const category = search["category"];
+    return typeof category === "string" ? { category } : {};
+  },
   head: () => ({
     meta: [
       { title: "Grocery List — FreshCart" },
